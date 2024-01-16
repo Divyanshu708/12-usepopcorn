@@ -20,6 +20,7 @@ StarRating.propTypes = {
   className: PropTypes.string,
   onSetRating: PropTypes.func,
 };
+
 export default function StarRating({
   maxRating = 5,
   color = "#fcc419",
@@ -75,6 +76,7 @@ function Star({ onRate, full, onHoverIn, onHoverOut, color, size }) {
     display: "block",
     curosr: "pointer",
   };
+
   return (
     <span
       role="button"
