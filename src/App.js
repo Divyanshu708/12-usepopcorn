@@ -54,7 +54,7 @@ const average = (arr) =>
   arr.reduce((acc, cur, i, arr) => acc + cur / arr.length, 0);
 
 export default function App() {
-  const [query, setQuery] = useState("inception");
+  const [query, setQuery] = useState("");
   const [movies, setMovies] = useState([]);
   const [watched, setWatched] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -80,13 +80,16 @@ export default function App() {
 
   useEffect(
     function () {
+      const controller = new AbortController();
+
       async function fetchMovies() {
         try {
           setIsLoading(true);
           setError("");
           // console.log(error);
           const res = await fetch(
-            `http://www.omdbapi.com/?apikey=${KEY}&s=${query}`
+            `http://www.omdbapi.com/?apikey=${KEY}&s=${query}`,
+            { signal: controller.signal }
           );
           if (!res.ok) {
             throw new Error("Something went wrong with fetching movies");
@@ -94,9 +97,12 @@ export default function App() {
           const data = await res.json();
           if (data.Response === "False") throw new Error("Movie not found");
           setMovies(data.Search);
+          setError("");
         } catch (err) {
           console.error(err.message);
-          setError(err.message);
+          if (err.name !== "AbortError") {
+            setError(err.message);
+          }
         } finally {
           setIsLoading(false);
         }
@@ -107,6 +113,9 @@ export default function App() {
         return;
       }
       fetchMovies();
+      return function () {
+        controller.abort();
+      };
     },
     [query]
   );
@@ -210,8 +219,8 @@ function MovieDetail({ selectedId, onCloseMovie, onAddWatched, watched }) {
       if (!title) return;
       document.title = `Movie | ${title}`;
 
-      return function(){
-        document.title="usePopcorn";
+      return function () {
+        document.title = "usePopcorn";
         console.log(`Clean up effect for movie ${title}`);
       };
     },
