@@ -2,7 +2,7 @@ import React from "react";
 // import { useState } from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
-import App from "./App";
+import App from "./App-v2.js";
 // import StarRating from "./StarRating";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));

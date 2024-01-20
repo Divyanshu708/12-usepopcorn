@@ -56,8 +56,8 @@ const average = (arr) =>
 export default function App() {
   const [query, setQuery] = useState("");
   const [movies, setMovies] = useState([]);
-  const [watched, setWatched] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [watched, setWatched] = useState([]);
   const [error, setError] = useState("");
   const [selectedId, setSelectedId] = useState(null);
   // const query = "haasdwas";
