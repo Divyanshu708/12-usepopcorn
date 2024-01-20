@@ -65,7 +65,7 @@ export default function App() {
           setError("");
         } catch (err) {
           if (err.name !== "AbortError") {
-            console.log(err.message);
+            // console.log(err.message);
             setError(err.message);
           }
         } finally {
@@ -389,7 +389,6 @@ function Movie({ movie, onSelectMovie }) {
 function WatchedSummary({ watched }) {
   const avgImdbRating = average(watched.map((movie) => movie.imdbRating));
   const avgUserRating = average(watched.map((movie) => movie.userRating));
-  console.log({});
   const avgRuntime = average(watched.map((movie) => movie.runtime));
 
   return (
