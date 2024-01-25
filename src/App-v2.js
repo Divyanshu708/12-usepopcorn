@@ -2,6 +2,8 @@ import { useEffect, useState, useRef } from "react";
 import StarRating from "./StarRating";
 import { useMovies } from "./useMovies";
 import { useLocalStorageState } from "./useLocalStorageState";
+import { useKey } from "./useKey";
+
 const KEY = "5dec575f";
 
 const average = (arr) =>
@@ -204,20 +206,22 @@ function MovieDetail({ selectedId, onCloseMovie, onAddWatched, watched }) {
     [title]
   );
 
-  useEffect(
-    function () {
-      function callback(e) {
-        if (e.code === "Escape") {
-          onCloseMovie();
-        }
-      }
+  useKey("Escape", onCloseMovie);
 
-      document.addEventListener("keydown", callback);
+  // useEffect(
+  //   function () {
+  //     function callback(e) {
+  //       if (e.code === "Escape") {
+  //         onCloseMovie();
+  //       }
+  //     }
 
-      document.removeEventListener("keydown", callback);
-    },
-    [onCloseMovie]
-  );
+  //     document.addEventListener("keydown", callback);
+
+  //     document.removeEventListener("keydown", callback);
+  //   },
+  //   [onCloseMovie]
+  // );
 
   return (
     <div className="details">
